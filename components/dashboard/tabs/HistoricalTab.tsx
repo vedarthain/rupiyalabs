@@ -17,15 +17,26 @@ const SUB_TABS: { id: SubTab; label: string }[] = [
 ]
 
 function MiniChart({ points, color = '#059669', dashed = false }: { points: number[]; color?: string; dashed?: boolean }) {
-  if (!points.length) return null
-  const min  = Math.min(...points)
-  const max  = Math.max(...points)
+  // Filter out nulls/NaNs and require at least 2 points
+  const clean = points.filter(p => p != null && !isNaN(p) && isFinite(p))
+  if (clean.length < 2) return (
+    <svg width="100%" height="75" viewBox="0 0 480 75" preserveAspectRatio="none">
+      <line x1="0" y1="37" x2="480" y2="37" stroke="#f3f4f6" strokeWidth="1"/>
+      <text x="240" y="42" textAnchor="middle" fontSize="10" fill="#d1d5db">No data</text>
+    </svg>
+  )
+
+  const min   = Math.min(...clean)
+  const max   = Math.max(...clean)
   const range = max - min || 1
   const W = 480; const H = 75
-  const xs = points.map((_, i) => (i / (points.length - 1)) * W)
-  const ys = points.map(p => H - ((p - min) / range) * (H - 15) - 7)
+  const xs = clean.map((_, i) => (i / (clean.length - 1)) * W)
+  const ys = clean.map(p => H - ((p - min) / range) * (H - 15) - 7)
   const poly = xs.map((x, i) => `${x},${ys[i]}`).join(' ')
   const area = `${xs[0]},${H} ${poly} ${xs[xs.length - 1]},${H}`
+
+  const lastX = xs[xs.length - 1]
+  const lastY = ys[ys.length - 1]
 
   return (
     <svg width="100%" height="75" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
@@ -34,22 +45,11 @@ function MiniChart({ points, color = '#059669', dashed = false }: { points: numb
       <line x1="0" y1="56" x2={W} y2="56" stroke="#f3f4f6" strokeWidth="1"/>
       <polyline fill={color} fillOpacity="0.07" stroke="none" points={area}/>
       <polyline fill="none" stroke={color} strokeWidth="1.5" strokeDasharray={dashed ? '4,3' : undefined} points={poly}/>
-      <circle cx={xs[xs.length-1]} cy={ys[ys.length-1]} r="3" fill={color}/>
+      {typeof lastX === 'number' && !isNaN(lastX) && typeof lastY === 'number' && !isNaN(lastY) && (
+        <circle cx={lastX} cy={lastY} r="3" fill={color}/>
+      )}
     </svg>
   )
-}
-
-interface ChartCard {
-  title: string
-  value: string
-  trend: string
-  trendPositive?: boolean
-  points: number[]
-  labels: string[]
-  values: string[]
-  footer: string
-  color?: string
-  dashed?: boolean
 }
 
 function HCard({ c }: { c: ChartCard }) {
