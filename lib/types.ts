@@ -24,7 +24,6 @@ export interface ScreenerRow {
   current_price:        number | null
   market_cap:           number | null
   debt_to_equity:       number | null
-  // Ratios
   pe_ratio:             number | null
   pb_ratio:             number | null
   roe:                  number | null
@@ -37,7 +36,6 @@ export interface ScreenerRow {
   debtor_days:          number | null
   dividend_yield:       number | null
   enterprise_value:     number | null
-  // P&L
   opm:                  number | null
   npm:                  number | null
   roce:                 number | null
@@ -46,20 +44,16 @@ export interface ScreenerRow {
   profit_after_tax:     number | null
   qoq_sales:            number | null
   qoq_profits:          number | null
-  // Growth
   sales_growth_5y:      number | null
   sales_growth_10y:     number | null
   eps_growth_5y:        number | null
   profit_growth_7y:     number | null
-  // Cash flow
   free_cash_flow:       number | null
   operating_cash_flow:  number | null
-  // Balance sheet
   book_value:           number | null
   net_worth:            number | null
   cash_equivalents:     number | null
   working_capital:      number | null
-  // User ratios
   ev_ebitda:            number | null
   interest_coverage:    number | null
   price_to_sales:       number | null
@@ -68,13 +62,13 @@ export interface ScreenerRow {
 
 // ── Dashboard — full stock detail ────────────────────────────
 export interface StockDetail extends Stock {
-  pnl:          StockPnl | null
-  growth:       StockGrowth | null
+  pnl:           StockPnl | null
+  growth:        StockGrowth | null
   balance_sheet: StockBalanceSheet | null
-  cash_flow:    StockCashFlow | null
-  ratios:       StockRatios | null
-  ratios2:      StockRatios2 | null
-  user_ratios:  StockUserRatios | null
+  cash_flow:     StockCashFlow | null
+  ratios:        StockRatios | null
+  ratios2:       StockRatios2 | null
+  user_ratios:   StockUserRatios | null
 }
 
 export interface StockGrowth {
@@ -99,6 +93,7 @@ export interface StockPnl {
   roce:             number | null
   eps:              number | null
   npm:              number | null
+  npm_ly:           number | null
   operating_profit: number | null
   interest:         number | null
   depreciation:     number | null
@@ -117,32 +112,33 @@ export interface StockPnl {
 }
 
 export interface StockBalanceSheet {
-  debt:               number | null
-  equity_capital:     number | null
-  reserves:           number | null
-  net_block:          number | null
-  investments:        number | null
-  current_assets:     number | null
+  debt:                number | null
+  equity_capital:      number | null
+  reserves:            number | null
+  net_block:           number | null
+  investments:         number | null
+  current_assets:      number | null
   current_liabilities: number | null
-  working_capital:    number | null
-  inventory:          number | null
-  trade_receivables:  number | null
-  cash_equivalents:   number | null
-  trade_payables:     number | null
-  net_worth:          number | null
-  working_capital_3y: number | null
-  working_capital_5y: number | null
-  working_capital_7y: number | null
-  debt_3y:            number | null
-  debt_5y:            number | null
-  debt_7y:            number | null
-  debt_10y:           number | null
+  working_capital:     number | null
+  inventory:           number | null
+  trade_receivables:   number | null
+  cash_equivalents:    number | null
+  trade_payables:      number | null
+  net_worth:           number | null
+  working_capital_3y:  number | null
+  working_capital_5y:  number | null
+  working_capital_7y:  number | null
+  debt_3y:             number | null
+  debt_5y:             number | null
+  debt_7y:             number | null
+  debt_10y:            number | null
 }
 
 export interface StockCashFlow {
   cfo_ly:   number | null
   fcf_ly:   number | null
   cfi_ly:   number | null
+  cfi_py:   number | null
   cff_ly:   number | null
   cfo_py:   number | null
   fcf_py:   number | null
@@ -164,8 +160,10 @@ export interface StockRatios {
   pb_ratio:             number | null
   roe:                  number | null
   roa:                  number | null
+  roa_ly:               number | null
   roic:                 number | null
   roce_ly:              number | null
+  asset_turnover:       number | null
   promoter_holding:     number | null
   fii_holding:          number | null
   dii_holding:          number | null
@@ -189,27 +187,28 @@ export interface StockRatios {
 }
 
 export interface StockRatios2 {
-  avg_roce_3y:   number | null
-  avg_roce_5y:   number | null
-  avg_roce_7y:   number | null
-  avg_roce_10y:  number | null
-  avg_roe_7y:    number | null
-  avg_roe_10y:   number | null
-  opm_5y:        number | null
-  opm_10y:       number | null
+  avg_roce_3y:     number | null
+  avg_roce_5y:     number | null
+  avg_roce_7y:     number | null
+  avg_roce_10y:    number | null
+  avg_roe_7y:      number | null
+  avg_roe_10y:     number | null
+  opm_5y:          number | null
+  opm_10y:         number | null
   historical_pe_3y:  number | null
   historical_pe_5y:  number | null
   historical_pe_7y:  number | null
   historical_pe_10y: number | null
-  mcap_3y:       number | null
-  mcap_5y:       number | null
-  mcap_7y:       number | null
-  mcap_10y:      number | null
-  debtor_days_3y: number | null
-  debtor_days_5y: number | null
-  roa_3y:        number | null
-  roa_5y:        number | null
-  is_not_sme:    boolean | null
+  mcap_3y:         number | null
+  mcap_5y:         number | null
+  mcap_7y:         number | null
+  mcap_10y:        number | null
+  debtor_days_3y:  number | null
+  debtor_days_5y:  number | null
+  roa_3y:          number | null
+  roa_5y:          number | null
+  avg_dividend_5y: number | null
+  is_not_sme:      boolean | null
 }
 
 export interface StockUserRatios {
@@ -228,35 +227,35 @@ export interface StockUserRatios {
 
 // ── Sidebar industry group ────────────────────────────────────
 export interface IndustryGroup {
-  name:  string
-  count: number
+  name:   string
+  count:  number
   stocks: SidebarStock[]
 }
 
 export interface SidebarStock {
-  id:             number
-  name:           string
-  nse_code:       string | null
-  current_price:  number | null
-  day_change_pct: number | null
-  industry:       string | null
-  roe:            number | null
+  id:              number
+  name:            string
+  nse_code:        string | null
+  current_price:   number | null
+  day_change_pct:  number | null
+  industry:        string | null
+  roe:             number | null
   piotroski_score: number | null
 }
 
 // ── Screener filter params ────────────────────────────────────
 export interface ScreenerFilters {
-  search?:        string
+  search?:         string
   industry_group?: string
-  industry?:      string
-  pe_min?:        number
-  pe_max?:        number
-  roe_min?:       number
-  preset?:        'quality' | 'value' | 'growth' | 'debtfree'
-  sort_by?:       keyof ScreenerRow
-  sort_dir?:      'asc' | 'desc'
-  page?:          number
-  per_page?:      number
+  industry?:       string
+  pe_min?:         number
+  pe_max?:         number
+  roe_min?:        number
+  preset?:         'quality' | 'value' | 'growth' | 'debtfree'
+  sort_by?:        keyof ScreenerRow
+  sort_dir?:       'asc' | 'desc'
+  page?:           number
+  per_page?:       number
 }
 
 // ── Controls state (Fundamentals tab) ────────────────────────

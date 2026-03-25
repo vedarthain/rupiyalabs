@@ -54,7 +54,7 @@ export default function DashboardPage() {
 
     Promise.all([
       fetch(`/api/stock/${selectedSymbol}`).then(r => r.json()),
-      fetch(`/api/stock/${selectedSymbol}/peers`).then(r => r.json()),
+      fetch(`/api/peers?symbol=${selectedSymbol}`).then(r => r.json()),
     ])
       .then(([stock, peers]) => {
         setStockData(stock)

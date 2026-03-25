@@ -204,7 +204,7 @@ export default function VerdictTab({ stock, loading }: Props) {
 
         <VCard title="📊 Historical context" color="#2563eb">
           {hpe5 > 0 && <Vp dot="#2563eb">5Y historical PE avg {fmtX(hpe5)} vs current {fmtX(pe)}</Vp>}
-          {ratios2?.avg_roe_5y != null && <Vp dot="#2563eb">5Y avg ROE {fmtPctAbs(ratios2.avg_roe_5y)} vs current {fmtPctAbs(roe)}</Vp>}
+          {ratios?.avg_roe_5y != null && <Vp dot="#2563eb">5Y avg ROE {fmtPctAbs(ratios.avg_roe_5y)} vs current {fmtPctAbs(roe)}</Vp>}
           {ratios2?.mcap_3y != null && <Vp dot="#2563eb">Mcap 3Y ago {fmtMcap(ratios2.mcap_3y)} vs now {fmtMcap(stock.market_cap)}</Vp>}
           {ratios2?.opm_5y != null && <Vp dot="#2563eb">5Y avg OPM {fmtPctAbs(ratios2.opm_5y)} vs current {fmtPctAbs(opm)}</Vp>}
         </VCard>
